@@ -1,0 +1,34 @@
+private:
+    vector<int> parent,size,rank;
+public:    
+    DSU(int n){
+        for(int i = 0;i<=n;i++){
+            parent.push_back(i);
+            size.push_back(1);
+            rank.push_back(0);
+        }
+    }
+public:
+    int findParent(int node){
+        if(parent[node]==node) 
+            return node;
+        
+        return parent[node] = findParent(parent[node]);
+    }
+    
+    void Union(int u , int v){
+        int pu = findParent(u);
+        int pv = findParent(v);
+        if(rank[pu]<rank[pv]){
+            parent[pu] = pv;
+        }
+        else if(rank[pu]>rank[pv]){
+            parent[pv] = pu;
+        }
+        else{
+            parent[pu] = pv;
+            rank[pv]++;
+        }
+    }
+        
+};
